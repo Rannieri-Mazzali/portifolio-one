@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes ring-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes ring-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.2); opacity: 0.9; }
+    }
+    @keyframes portal-float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body class="bg-black text-white p-8">
+  <h1 class="text-4xl mb-12 text-center" style="color: #00d4ff; text-shadow: 0 0 20px #00d4ff;">
+    Portal Preview
+  </h1>
+  
+  <div id="experience-container" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto"></div>
+
+  <script>
+    let portfolioData = null;
+
+    async function loadPortfolioData() {
+      try {
+        console.log('Carregando dados...');
+        const response = await fetch('/api/portfolio');
+        const data = await response.json();
+        console.log('✅ Dados carregados:', data);
+        portfolioData = data;
+        renderExperience();
+      } catch (error) {
+        console.error('❌ Erro ao carregar:', error);
+        document.getElementById('experience-container').innerHTML = `<p style="color: #ff006e;">Erro: ${error.message}</p>`;
+      }
+    }
+
+    function renderExperience() {
+      const container = document.getElementById('experience-container');
+      if (!container || !portfolioData.experience) {
+        console.error('Container ou dados não encontrados');
+        return;
+      }
+
+      console.log('Renderizando', portfolioData.experience.length, 'experiências');
+
+      container.innerHTML = portfolioData.experience.map((exp, index) => {
+        const isRed = exp.theme === 'red';
+        const borderColor = isRed ? '#ff006e' : '#00d4ff';
+        const accentColor = isRed ? '#ff006e' : '#00d4ff';
+        const bgGlow = isRed ? 'rgba(255, 0, 110, 0.15)' : 'rgba(0, 212, 255, 0.15)';
+        const ring1Color = isRed ? 'rgba(255, 0, 110, 0.3)' : 'rgba(0, 212, 255, 0.3)';
+        const ring2Color = isRed ? 'rgba(255, 0, 110, 0.5)' : 'rgba(0, 212, 255, 0.5)';
+        const ring3Color = isRed ? 'rgba(255, 0, 110, 0.2)' : 'rgba(0, 212, 255, 0.2)';
+        
+        return `
+        <div class="experience-portal group cursor-pointer" style="perspective: 1000px; transform-style: preserve-3d;">
+          <div class="relative rounded-lg overflow-hidden transform transition-all duration-500"
+               style="height: 320px; box-shadow: 0 0 40px ${bgGlow}, inset 0 0 30px rgba(0, 0, 0, 0.5);
+                      border: 2px solid ${borderColor}; background: rgba(0, 0, 0, 0.4);
+                      animation: portal-float 6s ease-in-out infinite;">
+            
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+              <div class="absolute w-40 h-40 rounded-full border-2" 
+                   style="border-color: ${ring1Color}; animation: ring-spin 8s linear infinite;"></div>
+              <div class="absolute w-24 h-24 rounded-full border-2" 
+                   style="border-color: ${ring2Color}; animation: ring-spin 6s linear infinite reverse;"></div>
+              <div class="absolute w-12 h-12 rounded-full" 
+                   style="background: radial-gradient(circle, ${ring3Color}, transparent); animation: ring-pulse 3s ease-in-out infinite;"></div>
+            </div>
+            
+            <div class="absolute inset-0 flex flex-col justify-between p-8 z-10">
+              <div>
+                <p class="text-sm uppercase tracking-widest mb-2" style="color: ${accentColor}; opacity: 0.6;">Exp. ${index + 1}</p>
+                <h3 class="text-3xl font-bold" style="color: ${accentColor}; text-shadow: 0 0 20px ${accentColor};">${exp.position}</h3>
+              </div>
+              
+              <div class="space-y-2">
+                <p class="text-base" style="color: ${accentColor}; opacity: 0.8;">${exp.company}</p>
+                <p class="text-sm text-gray-400">${exp.yearRange}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('');
+      
+      console.log('✅ Renderização completa');
+    }
+
+    // Inicializar
+    window.addEventListener('DOMContentLoaded', loadPortfolioData);
+  </script>
+</body>
+</html>

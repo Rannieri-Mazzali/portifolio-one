@@ -2,6 +2,8 @@
 // PORTFOLIO INTERATIVO - MAIN.JS
 // ============================================
 
+console.log('✅ main.js carregado com sucesso!');
+
 // Variáveis globais
 let portfolioData = null;
 const API_BASE = '/api';
@@ -29,9 +31,6 @@ async function loadPortfolioData() {
 
 function renderAllSections() {
   renderExperience();
-  renderReviews();
-  renderProjects();
-  renderSkills();
   addScrollAnimations();
 }
 
@@ -39,90 +38,111 @@ function renderExperience() {
   const container = document.getElementById('experience-container');
   if (!container || !portfolioData.experience) return;
 
-  container.innerHTML = portfolioData.experience.map((exp, index) => `
-    <div class="experience-card bg-gradient-to-r from-cyan-500/10 to-red-500/10 p-8 rounded-lg border border-cyan-500/30 hover:border-cyan-400/60 transition">
-      <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
-        <div>
-          <h3 class="text-2xl font-bold text-cyan-300">${exp.position}</h3>
-          <p class="text-red-400 text-lg">${exp.company}</p>
+  container.innerHTML = portfolioData.experience.map((exp, index) => {
+    const isRed = exp.theme === 'red';
+    const borderColor = isRed ? '#ff006e' : '#00d4ff';
+    const accentColor = isRed ? '#ff006e' : '#00d4ff';
+    const bgGlow = isRed ? 'rgba(255, 0, 110, 0.15)' : 'rgba(0, 212, 255, 0.15)';
+    const ring1Color = isRed ? 'rgba(255, 0, 110, 0.3)' : 'rgba(0, 212, 255, 0.3)';
+    const ring2Color = isRed ? 'rgba(255, 0, 110, 0.5)' : 'rgba(0, 212, 255, 0.5)';
+    const ring3Color = isRed ? 'rgba(255, 0, 110, 0.2)' : 'rgba(0, 212, 255, 0.2)';
+    
+    return `
+    <div class="experience-portal group cursor-pointer" onclick="openPortalModal(${exp.id})" 
+         style="perspective: 1000px; transform-style: preserve-3d;">
+      <!-- 3D Portal Frame -->
+      <div class="relative rounded-lg overflow-hidden transform transition-all duration-500"
+           style="height: 320px; box-shadow: 0 0 40px ${bgGlow}, inset 0 0 30px rgba(0, 0, 0, 0.5);
+                  border: 2px solid ${borderColor}; background: rgba(0, 0, 0, 0.4);
+                  group-hover:scale-105 group-hover:shadow-2xl;
+                  animation: portal-float 6s ease-in-out infinite;">
+        
+        <!-- Animated portal rings center -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+          <div class="absolute w-40 h-40 rounded-full border-2" 
+               style="border-color: ${ring1Color}; animation: ring-spin 8s linear infinite;">
+          </div>
+          <div class="absolute w-24 h-24 rounded-full border-2" 
+               style="border-color: ${ring2Color}; animation: ring-spin 6s linear infinite reverse;">
+          </div>
+          <div class="absolute w-12 h-12 rounded-full" 
+               style="background: radial-gradient(circle, ${ring3Color}, transparent); animation: ring-pulse 3s ease-in-out infinite;">
+          </div>
         </div>
-        <span class="text-gray-400 text-sm px-3 py-1 border border-gray-500 rounded-full whitespace-nowrap">
-          ${exp.period}
-        </span>
-      </div>
-      
-      <ul class="space-y-3">
-        ${exp.achievements.map(achievement => `
-          <li class="flex gap-3 text-gray-300">
-            <span class="text-cyan-400 mt-1">▸</span>
-            <span>${achievement}</span>
-          </li>
-        `).join('')}
-      </ul>
-    </div>
-  `).join('');
-}
+        
+        <!-- Scanlines effect -->
+        <div class="absolute inset-0 pointer-events-none opacity-5"
+             style="background-image: linear-gradient(0deg, transparent 1px, ${accentColor} 2px, transparent 3px);
+                    background-size: 100% 4px;"></div>
+        
+        <!-- Content overlay -->
+        <div class="absolute inset-0 flex flex-col justify-between p-6 sm:p-8 z-10">
+          <div>
+            <p class="text-xs sm:text-sm uppercase tracking-widest mb-2" 
+               style="color: ${accentColor}; opacity: 0.6;">Exp. ${index + 1}</p>
+            <h3 class="text-xl sm:text-2xl md:text-3xl font-bold leading-tight"
+                style="color: ${accentColor}; text-shadow: 0 0 20px ${accentColor};">${exp.position}</h3>
+          </div>
+          
+          <div class="space-y-2">
+            <p class="text-sm sm:text-base" style="color: ${accentColor}; opacity: 0.8;">${exp.company}</p>
+            <div class="flex items-center gap-2 font-semibold text-sm group-hover:gap-3 transition-all"
+                 style="color: ${accentColor};">
+              <span>Explorar</span>
+              <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
 
-function renderReviews() {
-  const container = document.getElementById('reviews-container');
-  if (!container || !portfolioData.reviews) return;
-
-  container.innerHTML = portfolioData.reviews.map((review, index) => `
-    <div class="review-card p-8 rounded-lg backdrop-blur-sm hover:shadow-lg transition-all">
-      <div class="mb-4">
-        <p class="text-gray-300 italic leading-relaxed">"${review.text}"</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div class="w-2 h-2 bg-gradient-to-r from-cyan-400 to-red-400 rounded-full"></div>
-        <p class="font-semibold text-cyan-400">${review.author}</p>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderProjects() {
-  const container = document.getElementById('projects-container');
-  if (!container || !portfolioData.projects) return;
-
-  container.innerHTML = portfolioData.projects.map((project, index) => `
-    <div class="project-card p-6 rounded-lg backdrop-blur-sm cursor-pointer group">
-      <h3 class="text-xl font-bold text-cyan-300 mb-2 group-hover:text-red-400 transition">
-        ${project.title}
-      </h3>
-      <p class="text-gray-400 text-sm mb-4">${project.description}</p>
-      
-      <div class="flex flex-wrap gap-2 mb-4">
-        ${project.tech.map(tech => `
-          <span class="px-2 py-1 text-xs bg-cyan-500/20 text-cyan-300 rounded border border-cyan-500/30">
-            ${tech}
-          </span>
-        `).join('')}
-      </div>
-      
-      <div class="pt-4 border-t border-cyan-500/20">
-        <p class="text-sm text-red-400 font-semibold">${project.metrics}</p>
+        <!-- Glow effect on hover -->
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none rounded-lg"
+             style="background: radial-gradient(ellipse at center, ${bgGlow} 0%, transparent 70%);"></div>
       </div>
     </div>
-  `).join('');
+    `;
+  }).join('');
 }
 
-function renderSkills() {
-  const container = document.getElementById('skills-container');
-  if (!container || !portfolioData.skills) return;
-
-  container.innerHTML = portfolioData.skills.map((skill, index) => `
-    <div class="skill-tag px-4 py-2 rounded-lg text-sm font-medium text-cyan-300 text-center hover:text-white transition cursor-pointer">
-      ${skill}
+function openPortalModal(expId) {
+  const exp = portfolioData.experience.find(e => e.id === expId);
+  if (!exp) return;
+  
+  document.getElementById('modal-position').textContent = exp.position;
+  document.getElementById('modal-company').textContent = exp.company;
+  document.getElementById('modal-period').textContent = exp.yearRange;
+  
+  const achievementsHtml = exp.achievements.map(achievement => `
+    <div class="flex gap-3 pb-4 border-b border-cyan-500/20 last:border-b-0">
+      <div class="flex-shrink-0">
+        <svg class="w-5 h-5 text-cyan-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <p class="text-gray-300 leading-relaxed">${achievement}</p>
     </div>
   `).join('');
+  
+  document.getElementById('modal-achievements').innerHTML = achievementsHtml;
+  document.getElementById('portal-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
 }
+
+function closePortalModal(event) {
+  if (event && event.target.id !== 'portal-modal') return;
+  document.getElementById('portal-modal').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
+
+// Reviews, Projects and Skills rendering removed per request; site will show only Experiência.
 
 // ============================================
 // 3. INTERATIVIDADE E ANIMAÇÕES
 // ============================================
 
 function addScrollAnimations() {
-  const elements = document.querySelectorAll('.experience-card, .review-card, .project-card, .skill-tag');
+  const elements = document.querySelectorAll('.experience-portal');
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -261,8 +281,38 @@ function activateMatrixMode() {
 }
 
 // ============================================
-// 6.5 MOBILE MENU
+// PORTAL MODAL FUNCTIONS
 // ============================================
+
+function openPortalModal(expId) {
+  const exp = portfolioData.experience.find(e => e.id === expId);
+  if (!exp) return;
+  
+  document.getElementById('modal-position').textContent = exp.position;
+  document.getElementById('modal-company').textContent = exp.company;
+  document.getElementById('modal-period').textContent = exp.yearRange;
+  
+  const achievementsHtml = exp.achievements.map(achievement => `
+    <div class="flex gap-3 pb-4 border-b border-cyan-500/20 last:border-b-0">
+      <div class="flex-shrink-0">
+        <svg class="w-5 h-5 text-cyan-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <p class="text-gray-300 leading-relaxed">${achievement}</p>
+    </div>
+  `).join('');
+  
+  document.getElementById('modal-achievements').innerHTML = achievementsHtml;
+  document.getElementById('portal-modal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePortalModal(event) {
+  if (event && event.target.id !== 'portal-modal') return;
+  document.getElementById('portal-modal').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
 
 function closeMobileMenu() {
   const mobileMenu = document.getElementById('mobile-menu');
@@ -272,7 +322,13 @@ function closeMobileMenu() {
   }
 }
 
+// ============================================
+// 7. INICIALIZAÇÃO
+// ============================================
+
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('🚀 Inicializando Portfolio...');
+  
   // Mobile menu toggle
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -289,14 +345,13 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
 
-// ============================================
-// 7. INICIALIZAÇÃO
-// ============================================
-
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('🚀 Inicializando Portfolio...');
+  // Close modal on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closePortalModal({ target: { id: 'portal-modal' } });
+    }
+  });
   
   loadPortfolioData();
   handleContactForm();

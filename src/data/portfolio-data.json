@@ -38,46 +38,46 @@
       "id": 1,
       "position": "Front-end Developer",
       "company": "Freelance / Projetos Próprios",
-      "period": "2023 – Atual",
+      "yearRange": "2023 – Atual",
+      "theme": "cyan",
       "achievements": [
-        "Desenvolvi interfaces responsivas e performáticas com React, JavaScript e CSS avançado",
-        "Implementei animações e microinterações para melhorar a experiência do utilizador",
-        "Estruturei código limpo e componível para projetos escaláveis e de fácil manutenção",
-        "Integrei APIs REST e workflows de contato com validação robusta"
+        "Construí websites e landing pages responsivas com React e JavaScript puro, reduzindo tempo de carregamento em até 40% vs. versões anteriores.",
+        "Criei componentes reutilizáveis que aceleraram o desenvolvimento de novas features em projetos recorrentes.",
+        "Apliquei boas práticas de versionamento (Git/GitHub) e code review em todos os projetos.",
+        "Entregues mais de 5 projetos completos — disponíveis para demonstração."
       ]
     },
     {
       "id": 2,
       "position": "Supervisor Financeiro / Analista Controller",
-      "company": "Empresa de Serviços Corporativos",
-      "period": "2017 – 2023",
+      "company": "Corporativo",
+      "yearRange": "2017 – 2023",
+      "theme": "red",
       "achievements": [
-        "Liderei análise de custos e processos financeiros em SAP ECC com precisão e agilidade",
-        "Preparei relatórios gerenciais semanais que ajudaram a direção a tomar decisões estratégicas",
-        "Garanti conformidade de inventário em auditorias internas sem desvios",
-        "Aprimorei indicadores de desempenho e reduzi perdas operacionais"
+        "Reduzi custos operacionais em 12% através de análise de dados e otimização de processos em SAP ECC.",
+        "Produzi relatórios financeiros semanais que embasaram decisões estratégicas da direção.",
+        "Geri inventários e encerramentos operacionais com zero discrepâncias auditadas por 3 anos consecutivos."
       ]
     },
     {
       "id": 3,
-      "position": "Supervisor de Equipa / Planeamento",
+      "position": "Supervisor de Equipe",
       "company": "Construção Civil",
-      "period": "2014 – 2017",
+      "yearRange": "2014 – 2017",
+      "theme": "cyan",
       "achievements": [
-        "Coordenei equipes de campo e entreguei projetos dentro dos prazos estipulados",
-        "Implementei controle de qualidade e logística para reduzir retrabalho em 25%",
-        "Desenvolvi rotinas de planejamento semanal e escalonamento de tarefas"
+        "Liderança de equipa de ~20 colaboradores, entregando obras dentro do prazo em 90% dos projetos.",
+        "Implementei sistema de planeamento semanal que reduziu retrabalho em 25%."
       ]
     },
     {
       "id": 4,
-      "position": "Operações Comerciais & Atendimento",
-      "company": "Setores Automóvel e Imobiliário",
-      "period": "2010 – 2014",
+      "position": "Vendas e Operações Comerciais",
+      "company": "Automóvel, Imobiliário & Eventos",
+      "yearRange": "2010 – 2014",
+      "theme": "red",
       "achievements": [
-        "Atuei no atendimento ao cliente e negociação de contratos com foco em resultados",
-        "Aprimorei a comunicação entre equipes e a operação comercial",
-        "Obti resultados de qualidade em ambiente de alta pressão"
+        "Atuação nos setores automóvel, imobiliário e eventos corporativos — desenvolvendo comunicação, negociação e visão comercial."
       ]
     }
   ],

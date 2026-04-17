@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { 
+      background: #000111; 
+      color: #00ff00; 
+      font-family: 'Courier New', monospace; 
+      padding: 40px;
+      line-height: 1.6;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #00d4ff; margin-bottom: 20px; text-shadow: 0 0 10px #00d4ff; }
+    .log-line { margin: 5px 0; padding: 5px; border-left: 3px solid #00d4ff; }
+    .error { color: #ff006e; border-left-color: #ff006e; }
+    .success { color: #00ff00; border-left-color: #00ff00; }
+    .info { color: #00d4ff; border-left-color: #00d4ff; }
+    pre { background: #0a0a1a; padding: 15px; border: 1px solid #00d4ff; margin: 10px 0; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 Debug Portfolio</h1>
+    <div id="logs"></div>
+  </div>
+
+  <script>
+    const logs = document.getElementById('logs');
+    
+    function log(message, type = 'info') {
+      const line = document.createElement('div');
+      line.className = `log-line ${type}`;
+      line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+      logs.appendChild(line);
+      console.log(`[${type}] ${message}`);
+    }
+
+    async function debug() {
+      try {
+        log('Iniciando debug...');
+        
+        log('Testando fetch de /api/portfolio');
+        const response = await fetch('/api/portfolio');
+        log(`Status HTTP: ${response.status}`, 'success');
+        
+        const data = await response.json();
+        log(`✓ JSON parseado com sucesso`, 'success');
+        log(`Experiências recebidas: ${data.experience?.length || 0}`, 'success');
+        
+        if (data.experience && data.experience.length > 0) {
+          data.experience.forEach((exp, idx) => {
+            log(`  [${idx + 1}] ${exp.position} - ${exp.company}`, 'success');
+          });
+        }
+        
+        log('', 'info');
+        log('=== Dados Completos ===', 'info');
+        const pre = document.createElement('pre');
+        pre.textContent = JSON.stringify(data, null, 2);
+        logs.appendChild(pre);
+        
+      } catch (error) {
+        log(`❌ Erro: ${error.message}`, 'error');
+        log(`Stack: ${error.stack}`, 'error');
+      }
+    }
+
+    // Auto-run
+    log('Página carregada!', 'success');
+    debug();
+  </script>
+</body>
+</html>

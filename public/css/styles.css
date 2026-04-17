@@ -627,3 +627,219 @@ input:focus, textarea:focus {
     linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px);
   background-size: 50px 50px;
 }
+
+/* ================================
+   4D / Dimensional HUD Background
+   ================================ */
+.hud-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.hud-ring {
+  position: absolute;
+  border: 1px solid rgba(0,212,255,0.18);
+  border-radius: 9999px;
+  box-shadow: 0 0 40px rgba(0,212,255,0.08), inset 0 0 20px rgba(255,0,110,0.04);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+}
+
+.hud-ring.r1 { width: 520px; height: 520px; left: -160px; top: 50%; transform: translateY(-50%); animation: ring-rotate 24s linear infinite; }
+.hud-ring.r2 { width: 360px; height: 360px; left: -120px; top: 48%; transform: translateY(-50%) rotate(8deg); animation: ring-rotate 18s linear infinite reverse; }
+.hud-ring.r3 { width: 220px; height: 220px; left: -80px; top: 52%; transform: translateY(-50%) rotate(-6deg); animation: ring-rotate 14s linear infinite; }
+
+.hud-center-beam {
+  position: absolute;
+  left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 70%; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,212,255,0.12), transparent);
+  box-shadow: 0 0 40px rgba(0,212,255,0.08);
+  mix-blend-mode: screen;
+}
+
+.hud-scanline {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(0deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100% 4px;
+  opacity: 0.08;
+  animation: scan 6s linear infinite;
+}
+
+@keyframes ring-rotate {
+  from { transform: translateY(-50%) rotate(0deg); }
+  to { transform: translateY(-50%) rotate(360deg); }
+}
+
+@keyframes scan {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 0% 50%; }
+  100% { background-position: 0% 100%; }
+}
+
+/* Neon HUD bars (bottom) */
+.hud-bars {
+  position: absolute; left: 50%; transform: translateX(-50%); bottom: 6%; width: 80%; height: 28px; display: flex; gap: 8px; justify-content: center; z-index:6; pointer-events: none;
+}
+.hud-bars .bar { flex: 1; height: 6px; background: linear-gradient(90deg,#00d4ff,#ff006e); opacity:0.18; border-radius: 4px; box-shadow: 0 0 8px rgba(0,212,255,0.06); }
+.hud-bars .bar.active { opacity: 0.9; height: 10px; box-shadow: 0 0 18px rgba(0,212,255,0.25); }
+
+/* Make sure hero has enough stacking context for HUD */
+.perspective { position: relative; z-index: 1; }
+
+/* Small devices tune-down */
+@media (max-width: 768px) {
+  .hud-ring.r1, .hud-ring.r2, .hud-ring.r3 { display: none; }
+  .hud-bars { display: none; }
+}
+
+/* Add subtle vignette for depth */
+.hero-scene::before { box-shadow: inset 0 0 120px rgba(0,0,0,0.6); }
+
+/* Optional: quick utility to place HUD elements via HTML */
+.hud-hidden { display: none !important; }
+
+/* ================================
+   3D PORTAL EXPERIENCE CARDS - UPDATED
+   ================================ */
+
+@keyframes ring-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ring-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.9;
+  }
+}
+
+@keyframes portal-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes portal-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(0, 212, 255, 0.6);
+  }
+}
+
+.experience-portal {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-style: preserve-3d;
+}
+
+.experience-portal:hover {
+  transform: rotateY(3deg) rotateX(-3deg) translateZ(30px);
+}
+
+/* Portal modal styling */
+.portal-modal {
+  animation: modal-fade-in 0.3s ease-out;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+    backdrop-filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    backdrop-filter: blur(8px);
+  }
+}
+
+.portal-content {
+  animation: portal-open 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 60px rgba(0, 212, 255, 0.3), inset 0 0 20px rgba(0, 212, 255, 0.1);
+}
+
+@keyframes portal-open {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotateX(20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotateX(0deg);
+  }
+}
+
+/* Portal modal scrollbar */
+.portal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.portal-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.portal-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #00d4ff, #ff006e);
+  border-radius: 4px;
+  opacity: 0.5;
+}
+
+.portal-content::-webkit-scrollbar-thumb:hover {
+  opacity: 0.8;
+}
+
+/* Responsiveness adjustments */
+@media (max-width: 768px) {
+  .experience-portal:hover {
+    transform: rotateY(1deg) rotateX(-1deg) translateZ(10px);
+  }
+
+  /* Reduce animation complexity on mobile */
+  @keyframes ring-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(180deg);
+    }
+  }
+
+  @keyframes portal-float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .experience-portal:hover {
+    transform: scale(1.02) translateZ(5px);
+  }
+
+  @keyframes ring-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(90deg);
+    }
+  }
+}

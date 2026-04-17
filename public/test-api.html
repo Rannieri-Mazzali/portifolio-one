@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test API</title>
+  <style>
+    body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+    pre { background: #111; padding: 10px; border: 1px solid #0f0; margin: 10px 0; }
+    .success { color: #0f0; }
+    .error { color: #f00; }
+  </style>
+</head>
+<body>
+  <h1>🧪 Teste de API</h1>
+  <div id="result"></div>
+  
+  <script>
+    async function testAPI() {
+      const result = document.getElementById('result');
+      
+      try {
+        result.innerHTML += '<p class="success">✓ Iniciando teste...</p>';
+        
+        const response = await fetch('/api/portfolio');
+        result.innerHTML += `<p class="success">✓ HTTP ${response.status}</p>`;
+        
+        const data = await response.json();
+        result.innerHTML += '<p class="success">✓ JSON parseado</p>';
+        result.innerHTML += `<p class="success">✓ Experiências encontradas: ${data.experience.length}</p>`;
+        
+        result.innerHTML += '<pre class="success">' + JSON.stringify(data.experience, null, 2) + '</pre>';
+        
+      } catch (error) {
+        result.innerHTML += `<p class="error">✗ Erro: ${error.message}</p>`;
+      }
+    }
+    
+    testAPI();
+  </script>
+</body>
+</html>

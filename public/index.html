@@ -79,6 +79,21 @@
       <div class="hero-panel panel-5"></div>
       <div class="hero-panel panel-6"></div>
     </div>
+    <!-- HUD Overlay (4D / Dimensional effect inspired images) -->
+    <div class="hud-overlay" aria-hidden="true">
+      <div class="hud-ring r1"></div>
+      <div class="hud-ring r2"></div>
+      <div class="hud-ring r3"></div>
+      <div class="hud-center-beam"></div>
+      <div class="hud-scanline"></div>
+      <div class="hud-bars">
+        <div class="bar active"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
     
     <!-- Floating Orbs (3D Effect) -->
     <div class="absolute top-10 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full mix-blend-multiply filter blur-3xl animate-blob-slow blob blob-1"></div>
@@ -125,25 +140,6 @@
           class="px-6 sm:px-10 py-2.5 sm:py-3.5 border-2 border-red-500 hover:border-red-400 hover:bg-red-500/10 rounded-lg font-bold transition text-sm sm:text-base uppercase tracking-wider">
           Contactar
         </button>
-      </div>
-
-      <!-- Stats Bar -->
-      <div class="mt-16 sm:mt-20 flex justify-center gap-6 sm:gap-12 text-xs sm:text-sm flex-wrap px-2">
-        <div class="flex flex-col items-center group cursor-pointer">
-          <div class="text-2xl sm:text-4xl font-black text-cyan-400 group-hover:text-cyan-300 transition">5+</div>
-          <span class="text-gray-400 group-hover:text-cyan-300 transition mt-1">Projetos</span>
-          <div class="h-0.5 bg-cyan-400 w-0 group-hover:w-8 transition-all mt-1"></div>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer">
-          <div class="text-2xl sm:text-4xl font-black text-red-400 group-hover:text-red-300 transition">40%</div>
-          <span class="text-gray-400 group-hover:text-red-300 transition mt-1">Faster</span>
-          <div class="h-0.5 bg-red-400 w-0 group-hover:w-8 transition-all mt-1"></div>
-        </div>
-        <div class="flex flex-col items-center group cursor-pointer">
-          <div class="text-2xl sm:text-4xl font-black text-cyan-400 group-hover:text-cyan-300 transition">5y+</div>
-          <span class="text-gray-400 group-hover:text-cyan-300 transition mt-1">Experiência</span>
-          <div class="h-0.5 bg-cyan-400 w-0 group-hover:w-8 transition-all mt-1"></div>
-        </div>
       </div>
     </div>
 
@@ -221,15 +217,36 @@
     </div>
   </section>
 
-  <!-- Experience Section -->
-  <section id="experience" class="py-12 sm:py-16 md:py-20 px-3 sm:px-4 md:px-6 relative">
-    <div class="max-w-6xl mx-auto">
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center">
+  <!-- Experience Section - Portal 3D -->
+  <section id="experience" class="py-12 sm:py-16 md:py-20 lg:py-24 px-3 sm:px-4 md:px-6 lg:px-8 relative overflow-hidden">
+    <!-- Background effects for experience -->
+    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/5 via-transparent to-red-500/5 pointer-events-none"></div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 md:mb-12 lg:mb-16 text-center">
         <span class="neon-text">Experiência</span> Profissional
       </h2>
       
-      <div id="experience-container" class="space-y-6 sm:space-y-8">
-        <!-- Será preenchido por JavaScript -->
+      <div id="experience-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 w-full">
+        <!-- Será preenchido por JavaScript como portais 3D -->
+      </div>
+
+      <!-- Portal detail modal -->
+      <div id="portal-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 portal-modal" onclick="closePortalModal(event)">
+        <div class="portal-content bg-black border-2 rounded-lg p-6 sm:p-8 max-w-2xl w-full max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+          <div class="flex justify-between items-start gap-4 mb-6">
+            <div>
+              <h3 id="modal-position" class="text-2xl sm:text-3xl md:text-4xl font-bold mb-2" style="color: #00d4ff; text-shadow: 0 0 20px #00d4ff;"></h3>
+              <p id="modal-company" class="text-lg sm:text-xl" style="color: #ff006e;"></p>
+              <p id="modal-period" class="text-gray-400 text-sm mt-2"></p>
+            </div>
+            <button onclick="closePortalModal()" class="text-cyan-400 hover:text-cyan-300 transition text-2xl flex-shrink-0">✕</button>
+          </div>
+          
+          <div id="modal-achievements" class="space-y-4">
+            <!-- Achievements will be populated here -->
+          </div>
+        </div>
       </div>
     </div>
   </section>
