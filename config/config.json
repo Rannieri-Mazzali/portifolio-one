@@ -1,0 +1,23 @@
+{
+  "app": {
+    "name": "Rannieri Portfolio",
+    "version": "1.0.0",
+    "description": "Portfolio Interativo - Rannieri Mazzali de Oliveira"
+  },
+  "server": {
+    "port": 3000,
+    "host": "localhost",
+    "environment": "development"
+  },
+  "paths": {
+    "public": "public",
+    "src": "src",
+    "api": "api",
+    "data": "src/data"
+  },
+  "features": {
+    "cors": true,
+    "compression": false,
+    "logging": true
+  }
+}

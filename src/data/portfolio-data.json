@@ -1,0 +1,148 @@
+{
+  "personal": {
+    "name": "Rannieri Mazzali de Oliveira",
+    "title": "Front-end Developer",
+    "location": "Porto, Portugal",
+    "modality": "Presencial & Remoto",
+    "email": "rannieri.mazzali@outlook.com",
+    "phone": "+351 936 745 950",
+    "summary": "Desenvolvo interfaces modernas, responsivas e focadas no utilizador com React, JavaScript, HTML e CSS. Fui Supervisor Financeiro por mais de 5 anos em ambiente corporativo — o que me dá uma perspectiva rara: entendo tanto o código quanto o negócio por trás dele. Lido bem com prazo, métricas e comunicação clara, o que me torna fácil de integrar em qualquer equipa."
+  },
+  "stack": {
+    "frontend": [
+      "React",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "HTML5",
+      "CSS3",
+      "Responsive Design"
+    ],
+    "tools": [
+      "Git",
+      "GitHub",
+      "Versionamento de código"
+    ],
+    "uxui": [
+      "Usabilidade",
+      "Acessibilidade",
+      "Design centrado no utilizador"
+    ],
+    "data": [
+      "SAP ECC",
+      "Análise de dados",
+      "Excel avançado"
+    ]
+  },
+  "experience": [
+    {
+      "id": 1,
+      "position": "Front-end Developer",
+      "company": "Freelance / Projetos Próprios",
+      "period": "2023 – Atual",
+      "achievements": [
+        "Desenvolvi interfaces responsivas e performáticas com React, JavaScript e CSS avançado",
+        "Implementei animações e microinterações para melhorar a experiência do utilizador",
+        "Estruturei código limpo e componível para projetos escaláveis e de fácil manutenção",
+        "Integrei APIs REST e workflows de contato com validação robusta"
+      ]
+    },
+    {
+      "id": 2,
+      "position": "Supervisor Financeiro / Analista Controller",
+      "company": "Empresa de Serviços Corporativos",
+      "period": "2017 – 2023",
+      "achievements": [
+        "Liderei análise de custos e processos financeiros em SAP ECC com precisão e agilidade",
+        "Preparei relatórios gerenciais semanais que ajudaram a direção a tomar decisões estratégicas",
+        "Garanti conformidade de inventário em auditorias internas sem desvios",
+        "Aprimorei indicadores de desempenho e reduzi perdas operacionais"
+      ]
+    },
+    {
+      "id": 3,
+      "position": "Supervisor de Equipa / Planeamento",
+      "company": "Construção Civil",
+      "period": "2014 – 2017",
+      "achievements": [
+        "Coordenei equipes de campo e entreguei projetos dentro dos prazos estipulados",
+        "Implementei controle de qualidade e logística para reduzir retrabalho em 25%",
+        "Desenvolvi rotinas de planejamento semanal e escalonamento de tarefas"
+      ]
+    },
+    {
+      "id": 4,
+      "position": "Operações Comerciais & Atendimento",
+      "company": "Setores Automóvel e Imobiliário",
+      "period": "2010 – 2014",
+      "achievements": [
+        "Atuei no atendimento ao cliente e negociação de contratos com foco em resultados",
+        "Aprimorei a comunicação entre equipes e a operação comercial",
+        "Obti resultados de qualidade em ambiente de alta pressão"
+      ]
+    }
+  ],
+  "skills": [
+    "Pensamento analítico",
+    "Resolução de problemas",
+    "Atenção a detalhes",
+    "Comunicação clara",
+    "Trabalho em equipa",
+    "Proatividade",
+    "Orientação a resultados"
+  ],
+  "languages": [
+    {
+      "name": "Português",
+      "level": "Nativo"
+    },
+    {
+      "name": "Inglês",
+      "level": "Intermediário / Avançado (leitura técnica fluente)"
+    }
+  ],
+  "reviews": [
+    {
+      "id": 1,
+      "text": "Reliably completed a great job, on time, on budget with efficient code",
+      "author": "Anna Kjellberg"
+    },
+    {
+      "id": 2,
+      "text": "The best there  is when it comes to completing an issue on edit on a serious even on edit on a serious and shameless haven't found a solution yet, super recommend and would definitely re-hire",
+      "author": "Martina Stone"
+    },
+    {
+      "id": 3,
+      "text": "Fast and clear communication, upfront about his skill areas. Easy to work with and great final product",
+      "author": "Christopher Reeve"
+    },
+    {
+      "id": 4,
+      "text": "I have worked with a few different people on my wix website and evan is the best ith knowledge and creative input really helps to get the best from my site. He sees the solutions and potential. Issues with my website absolutely haven't found a solution yet. I am very pround and proactive to evan's skill, problem solving and creative input into the functionality of my website",
+      "author": "Barry Moss Smith"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-commerce Responsivo",
+      "description": "Platform de vendas online com React, reduzindo tempo de carregamento em 40%",
+      "tech": ["React", "JavaScript", "CSS3", "API REST"],
+      "metrics": "40% mais rápido"
+    },
+    {
+      "id": 2,
+      "title": "Landing Page Performance",
+      "description": "Website otimizado focado em experiência do utilizador e conversão",
+      "tech": ["HTML5", "CSS3", "JavaScript", "TypeScript"],
+      "metrics": "95+ Lighthouse"
+    },
+    {
+      "id": 3,
+      "title": "Componentes Reutilizáveis",
+      "description": "Biblioteca de componentes React para projetos recorrentes",
+      "tech": ["React", "TypeScript", "Storybook"],
+      "metrics": "5+ Projetos"
+    }
+  ]
+}
