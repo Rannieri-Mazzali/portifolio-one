@@ -3,6 +3,11 @@ import cors from 'cors';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
+import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+// Carregar variáveis de ambiente
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -45,17 +50,49 @@ app.get('/api/reviews', (req, res) => {
   }
 });
 
-app.post('/api/contact', (req, res) => {
+app.post('/api/contact', async (req, res) => {
   const { name, email, message } = req.body;
   
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Campos obrigatórios faltando' });
   }
 
-  // Log da mensagem (em produção, enviar email)
-  console.log('📧 Nova mensagem de contato:', { name, email, message });
-  
-  res.json({ success: true, message: 'Mensagem recebida com sucesso!' });
+  try {
+    // Configurar transporter do Nodemailer
+    const transporter = nodemailer.createTransport({
+      service: 'outlook',
+      auth: {
+        user: process.env.EMAIL_USER || 'rannieri.mazzali@outlook.com',
+        pass: process.env.EMAIL_PASS || ''
+      }
+    });
+
+    // Enviar email
+    const mailOptions = {
+      from: process.env.EMAIL_USER || 'rannieri.mazzali@outlook.com',
+      to: 'rannieri.mazzali@outlook.com',
+      subject: `Nova mensagem de contato de ${name}`,
+      html: `
+        <h2>Nova Mensagem de Contato</h2>
+        <p><strong>Nome:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Mensagem:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+      `
+    };
+
+    await transporter.sendMail(mailOptions);
+    
+    console.log('📧 Email enviado com sucesso de:', email);
+    res.json({ success: true, message: 'Mensagem enviada com sucesso!' });
+  } catch (error) {
+    console.error('❌ Erro ao enviar email:', error.message);
+    // Se falhar o envio, ainda assim retorna sucesso para não quebrar o UX
+    res.status(500).json({ 
+      success: false, 
+      message: 'Erro ao enviar mensagem. Por favor, tente contactar diretamente.' 
+    });
+  }
 });
 
 // Servir HTML principal
